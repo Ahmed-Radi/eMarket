@@ -229,7 +229,6 @@
     <Content Include="Views\products\Delete.cshtml" />
     <Content Include="Views\products\Details.cshtml" />
     <Content Include="Views\products\Edit.cshtml" />
-    <Content Include="Views\products\Index.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\products\Filter.cshtml" />
   </ItemGroup>
