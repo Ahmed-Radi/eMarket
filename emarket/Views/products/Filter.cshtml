@@ -1,0 +1,41 @@
+﻿@model IEnumerable<emarket.Models.product>
+
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+@using (Html.BeginForm())
+{
+
+    <form class="navbar-form navbar-right" role="search">
+
+        <div class="form-group">
+            <p>@Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })</p>
+            @Html.TextBox("search")
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+
+}
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="@Url.Content(item.Image)" alt="..." width="242" height="200">
+                <div class="caption">
+                    @Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-success" })
+                    <h3>@item.Name</h3>
+                    <p>@item.Price</p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+    }
+</table>

@@ -1,0 +1,59 @@
+﻿@model emarket.Models.product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Image)" width="70" height="100" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category.Category_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.Category_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to Products", "Filter")
+    @Html.ActionLink("Update", "Edit", null, new { id = Model.Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Delete", "Delete", null, new { id = Model.Id }, new { @class = "btn btn-info" })
+</p>
