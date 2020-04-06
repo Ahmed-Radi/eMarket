@@ -54,7 +54,7 @@ namespace emarket.Controllers
             {
                 db.products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Filter");
             }
 
             ViewBag.Category_Id = new SelectList(db.categories, "Id", "Category_Name", product.Category_Id);
@@ -88,7 +88,7 @@ namespace emarket.Controllers
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Filter");
             }
             ViewBag.Category_Id = new SelectList(db.categories, "Id", "Category_Name", product.Category_Id);
             return View(product);
@@ -117,7 +117,7 @@ namespace emarket.Controllers
             product product = db.products.Find(id);
             db.products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Filter");
         }
 
         protected override void Dispose(bool disposing)
