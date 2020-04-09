@@ -10,45 +10,24 @@
     <h4>product</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+
+        
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Name)- @Html.DisplayFor(model => model.Price)<p>EGP</p> (@Html.DisplayFor(model => model.category.Category_Name))
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+      
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            <img src="@Url.Content(Model.Image)" width="300" height="350" />
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
+       
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            <img src="@Url.Content(Model.Image)" width="180" height="200" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.category.Category_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.category.Category_Name)
-        </dd>
 
     </dl>
 </div>
