@@ -128,9 +128,23 @@ namespace emarket.Controllers
             }
             base.Dispose(disposing);
         }
+        //Search by product
+        //public ActionResult Filter(string search)
+        //{
+        //    return View(db.products.Where(item => item.Name.Contains(search) || search == null).ToList());
+        //}
+
+        //Search by Category
         public ActionResult Filter(string search)
         {
-            return View(db.products.Where(item => item.Name.Contains(search) || search == null).ToList());
+            var products = db.products.Include(p => p.category);
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                products = products.Where(item => item.category.Category_Name.Contains(search) || search == null);
+            }
+            return View(products.ToList());
         }
+
     }
 }
