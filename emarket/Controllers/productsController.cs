@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using emarket.Models;
+using System.IO;
 
 namespace emarket.Controllers
 {
@@ -48,10 +49,17 @@ namespace emarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product,HttpPostedFileBase imgFile)
         {
             if (ModelState.IsValid)
             {
+                String path = "";
+                if (imgFile.FileName.Length > 0)
+                {
+                    path = "~/images/" + Path.GetFileName(imgFile.FileName);
+                    imgFile.SaveAs(Server.MapPath(path));
+                }
+                product.Image = path;
                 db.products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Filter");
