@@ -10,29 +10,28 @@
     <h4>product</h4>
     <hr />
     <dl class="dl-horizontal">
-
-        
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)- @Html.DisplayFor(model => model.Price)<p>EGP</p> (@Html.DisplayFor(model => model.category.Category_Name))
+        <dd class="list-group-item text-center" style="background-color: #CCCCCC; font-size:23px;">
+            @Html.DisplayFor(model => model.Name) - @Html.DisplayFor(model => model.Price) EGP ( @Html.DisplayFor(model => model.category.Category_Name))
         </dd>
-
-      
-
-        <dd>
+        <dd class="text-center">
             <img src="@Url.Content(Model.Image)" width="300" height="350" />
         </dd>
-
-       
-        <dd>
+        <dd class="text-center" style="font-size:17px;">
             @Html.DisplayFor(model => model.Description)
         </dd>
-
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Back to Products", "Filter")
-    @Html.ActionLink("Update", "Edit", null, new { id = Model.Id }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Delete", "Delete", null, new { id = Model.Id }, new { @class = "btn btn-danger" })
-</p>
+<div class="btn-group btn-group-justified">
+    <div class="btn-group">
+        @Html.ActionLink("Update", "Edit", null, new { id = Model.Id }, new { @class = "btn btn-success" })
+    </div>
+    <div class="btn-group"></div>
+    <div class="btn-group">
+        @Html.ActionLink("Delete", "Delete", null, new { id = Model.Id }, new { @class = "btn btn-danger" })
+    </div>
+</div>
+<br />
+<div>
+    @Html.ActionLink("Back to Products", "Filter", null, new { @class = "btn breadcrumb  " })
+</div>
+
