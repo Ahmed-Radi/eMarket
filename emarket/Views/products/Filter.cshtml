@@ -32,9 +32,8 @@
             <div class="thumbnail">
                 <img src="@Url.Content(item.Image)" alt="..." width="242" height="200">
                 <div class="caption">
-                    @Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-success" })
-                    <h3>@item.Name</h3>
-                    <p>@item.Price</p>
+                    @Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })
+                    <h4>@item.Price</h4>
                     <p></p>
                 </div>
             </div>
