@@ -30,14 +30,15 @@
     {
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="@Url.Content(item.Image)" alt="..." width="242" height="200">
+                <a href="@Url.Action("Details","products",new { id=item.Id})">
+                <img src="@Url.Content(item.Image)" alt="..." width="242" height="200"></a>
                 <div class="caption">
-                    @Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })
+                    <h4>@item.Name</h4>
+                    @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
                     <h4>@item.Price</h4>
                     <p></p>
                 </div>
             </div>
         </div>
-
     }
 </table>
