@@ -49,22 +49,28 @@ namespace emarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product,HttpPostedFileBase imgFile)
+        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product, HttpPostedFileBase imgFile)
         {
-            if (ModelState.IsValid)
+            if (imgFile == null)
             {
-                String path = "";
-                if (imgFile.FileName.Length > 0)
-                {
-                    path = "~/images/" + Path.GetFileName(imgFile.FileName);
-                    imgFile.SaveAs(Server.MapPath(path));
-                }
-                product.Image = path;
-                db.products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Filter");
+                ViewBag.error = "Requred";
             }
-
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    String path = "";
+                    if (imgFile.FileName.Length > 0)
+                    {
+                        path = "~/images/" + Path.GetFileName(imgFile.FileName);
+                        imgFile.SaveAs(Server.MapPath(path));
+                    }
+                    product.Image = path;
+                    db.products.Add(product);
+                    db.SaveChanges();
+                    return RedirectToAction("Filter");
+                }
+            }
             ViewBag.Category_Id = new SelectList(db.categories, "Id", "Category_Name", product.Category_Id);
             return View(product);
         }
