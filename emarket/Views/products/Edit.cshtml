@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(Html.BeginForm("Edit", "products", FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
 
@@ -44,8 +44,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                <img src="@Url.Content(Model.Image)" alt="..." width="242" height="200">
+                @*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })*@
+                <input type="file" id="imgFile" name="imgFile" />
             </div>
         </div>
 
@@ -54,6 +56,7 @@
             <div class="col-md-10">
                 @Html.DropDownList("Category_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
+
             </div>
         </div>
 

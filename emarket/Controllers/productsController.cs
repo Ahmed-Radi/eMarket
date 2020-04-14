@@ -78,11 +78,13 @@ namespace emarket.Controllers
         // GET: products/Edit/5
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             product product = db.products.Find(id);
+            TempData["imgpath"] = product.Image;
             if (product == null)
             {
                 return HttpNotFound();
@@ -96,18 +98,34 @@ namespace emarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Image,Category_Id")] product product, HttpPostedFileBase imgFile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Filter");
+                if (imgFile != null)
+                {
+                    String path = "";
+                    if (imgFile.FileName.Length > 0)
+                    {
+                        path = "~/images/" + Path.GetFileName(imgFile.FileName);
+                        imgFile.SaveAs(Server.MapPath(path));
+                    }
+                    product.Image = path;
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Filter");
+                }
+                else
+                {
+                    product.Image = TempData["imgpath"].ToString();
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Filter");
+                }
             }
             ViewBag.Category_Id = new SelectList(db.categories, "Id", "Category_Name", product.Category_Id);
             return View(product);
         }
-
         // GET: products/Delete/5
         public ActionResult Delete(int? id)
         {
