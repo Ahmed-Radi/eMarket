@@ -1,0 +1,40 @@
+﻿@model IEnumerable<emarket.Models.cart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.added_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.product.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.added_at)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.product.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.product_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.product_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.product_Id })
+        </td>
+    </tr>
+}
+
+</table>

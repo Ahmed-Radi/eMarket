@@ -22,5 +22,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="carts">
+      <EntityTypeMapping TypeName="emarketModel.cart">
+        <MappingFragment StoreEntitySet="cart">
+          <ScalarProperty Name="added_at" ColumnName="added_at" />
+          <ScalarProperty Name="product_Id" ColumnName="product_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

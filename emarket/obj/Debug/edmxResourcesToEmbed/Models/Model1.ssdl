@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="emarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\HP\DOCUMENTS\GITHUB\EMARKET\EMARKET\APP_DATA\EMARKET.MDF.dbo.cart' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="product_Id" />
+    </Key>
+    <Property Name="product_Id" Type="int" Nullable="false" />
+    <Property Name="added_at" Type="datetime" />
+  </EntityType>
   <EntityType Name="category">
     <Key>
       <PropertyRef Name="Id" />
@@ -19,6 +28,18 @@
     <Property Name="Image" Type="nchar" MaxLength="100" />
     <Property Name="Category_Id" Type="int" />
   </EntityType>
+  <Association Name="FK__cart__product_Id__35BCFE0A">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="cart" Type="Self.cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__product__Categor__25869641">
     <End Role="category" Type="Self.category" Multiplicity="0..1" />
     <End Role="product" Type="Self.product" Multiplicity="*" />
@@ -34,6 +55,16 @@
   <EntityContainer Name="emarketModelStoreContainer">
     <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cart" EntityType="Self.cart" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [cart].[product_Id] AS [product_Id], 
+    [cart].[added_at] AS [added_at]
+    FROM [dbo].[cart] AS [cart]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__cart__product_Id__35BCFE0A" Association="Self.FK__cart__product_Id__35BCFE0A">
+      <End Role="product" EntitySet="product" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
     <AssociationSet Name="FK__product__Categor__25869641" Association="Self.FK__product__Categor__25869641">
       <End Role="category" EntitySet="category" />
       <End Role="product" EntitySet="product" />
