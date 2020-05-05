@@ -12,16 +12,11 @@ namespace emarket.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class product
+    public partial class cart
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<double> Price { get; set; }
-        public string Description { get; set; }
-        public string Image { get; set; }
-        public Nullable<int> Category_Id { get; set; }
+        public int product_Id { get; set; }
+        public Nullable<System.DateTime> added_at { get; set; }
     
-        public virtual category category { get; set; }
-        public virtual cart cart { get; set; }
+        public virtual product product { get; set; }
     }
 }
