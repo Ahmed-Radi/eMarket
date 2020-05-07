@@ -14,7 +14,7 @@
     <div class="form-group">
         <div class="input-group">
             <span class="input-group-addon">@@</span>
-            @Html.TextBox("search", null, new { Type = "text", @class = "form-control" })
+                @Html.TextBox("search", null, new { Type = "text", @class = "form-control" })
             <span class="input-group-btn">
                 @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })
             </span>
@@ -36,7 +36,7 @@
                     <h4>@item.Name</h4>
                     @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
                     <h4>@item.Price</h4>
-                    <p></p>
+                    @Html.ActionLink("Add To cart", "Create", null, new { @class = "btn btn-primary" })
                 </div>
             </div>
         </div>
