@@ -128,7 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\cartsController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\productsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -235,11 +235,7 @@
     <Content Include="Views\products\Edit.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\products\Filter.cshtml" />
-    <Content Include="Views\carts\Create.cshtml" />
-    <Content Include="Views\carts\Delete.cshtml" />
-    <Content Include="Views\carts\Details.cshtml" />
-    <Content Include="Views\carts\Edit.cshtml" />
-    <Content Include="Views\carts\Index.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
