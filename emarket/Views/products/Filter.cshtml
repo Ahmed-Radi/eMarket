@@ -5,7 +5,9 @@
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
+    <p><a href="@Url.Action("Index","carts",null) " class="btn btn-primary pull-right" role="button">Show my cart</a> </p>
+<br />
 <h2>Products</h2>
 @using (Html.BeginForm())
 {
@@ -18,9 +20,7 @@
             <span class="input-group-btn">
                 @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })
             </span>
-            
-                <p><a href="@Url.Action("Index","carts",null) " class="btn btn-primary" role="button">Show my cart</a> </p>
-            
+                
         </div>
     </div>
 </form>

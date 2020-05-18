@@ -43,7 +43,7 @@ namespace emarket.Controllers
             var Remove = db.carts.Single(cart => cart.product_Id == id);
             db.carts.Remove(Remove);
             db.SaveChanges();
-            return RedirectToAction("Filter", "products");
+            return RedirectToAction("Index");
         }
     }
 }
