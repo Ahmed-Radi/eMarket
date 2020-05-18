@@ -5,47 +5,112 @@
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-    <p><a href="@Url.Action("Index","carts",null) " class="btn btn-primary pull-right" role="button">Show my cart</a> </p>
-<br />
+
+<div class="container" style="width:100%;margin-top:2%">
+    <a href="href=" @Url.Action("Index", "carts", null) class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" role="button">Show my cart</a>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Technotips MVC</h3>
+                </div>
+                <div class="modal-body">
+
+                    <form id="myForm">
+                        <table>
+                            <tr>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.adda_at)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.product.Name)
+                                    </th>
+                                    <th></th>*@
+                            </tr>
+                        </table>
+                    </form>
+                    <div style="text-align:center;display:none" id="loaderDiv">
+                        <img src="~/Content/InternetSlowdown_Day.gif" width="150" /> @* //put any image in content folder*@
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <h2>Products</h2>
 @using (Html.BeginForm())
 {
-<br />
-<form class="navbar-form navbar-right" role="search">
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon">@@</span>
-            @Html.TextBox("search", null, new { Type = "text", @class = "form-control" })
-            <span class="input-group-btn">
-                @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })
-            </span>
-                
+    <br />
+    <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">@@</span>
+                @Html.TextBox("search", null, new { Type = "text", @class = "form-control" })
+                <span class="input-group-btn">
+                    @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })
+                </span>
+
+            </div>
         </div>
-    </div>
-</form>
-<br />
+    </form>
+    <br />
 }
 
 <table class="table">
 
     @foreach (var item in Model)
     {
-            
-                <div class=" col-lg-2 col-xs-6 col-sm-4 ">
-                    <div class="thumbnail">
-                        <a href="@Url.Action("Details","products",new { id=item.Id})">
-                            <img src="@Url.Content(item.Image)" alt="..." width="270" height="210">
-                        </a>
-                        <div class="caption">
-                            <h4>@item.Name</h4>
-                            @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
-                            <h4>@item.Price</h4>
-                            <a href="@Url.Action("AddToCart","Carts",new { id=item.Id} )" class="btn btn-primary fa fa-shopping-cart">Add To Cart</a>
-                        </div>
-                    </div>
+
+        <div class=" col-lg-2 col-xs-6 col-sm-4 ">
+            <div class="thumbnail">
+                <a href="@Url.Action("Details","products",new { id=item.Id})">
+                    <img src="@Url.Content(item.Image)" alt="..." width="270" height="210">
+                </a>
+                <div class="caption">
+                    <h4>@item.Name</h4>
+                    @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
+                    <h4>@item.Price</h4>
+                    <a href="@Url.Action("AddToCart","Carts",new { id=item.Id} )" class="btn btn-primary fa fa-shopping-cart">Add To Cart</a>
                 </div>
-            
-     
+            </div>
+        </div>
+
+
     }
 </table>
+
+<script>
+
+        $(document).ready(function () {
+
+
+            $("#btnSubmit").click(function () {
+
+                $("#loaderDiv").show();
+
+                var myformdata = $("#myForm").serialize();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Test/Index",
+                    data: myformdata,
+                    success: function () {
+                        $("#loaderDiv").hide();
+                        $("#myModal").modal("hide");
+
+                    }
+
+                })
+            })
+
+        })
+
+
+</script>
