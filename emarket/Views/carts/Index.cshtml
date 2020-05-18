@@ -1,8 +1,8 @@
 ﻿﻿@model IEnumerable<emarket.Models.cart>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="container bootstrap snippet">
@@ -17,20 +17,19 @@
         <div class="table-responsive">
             <table id="myTable">
 
-
-
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-
-                            @Html.ActionLink("Remove", "Delete", new { id = item.product_Id })
-                        </td>
-                        <td>
-                            <p>@item.product.Name-@item.product.Price</p>
-                        </td>
-
-                    </tr>
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Remove","Carts",new { id=item.product_Id } )" class="btn btn-primary">Remove</a>
+                    </td>
+                    <td>
+                        <p>@item.product.Name - &#36;@item.product.Price</p>
+                    </td>
+                    <td>
+                        <p>@item.added_at-@item.product.Price</p>
+                    </td>
+                </tr>
                 }
 
 
@@ -38,7 +37,7 @@
         </div>
     </div>
 </div>
-<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
+<a href="@Url.Action("Filter","products",null) " class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
 <style>
 
     table {
