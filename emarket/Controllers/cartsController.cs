@@ -21,20 +21,18 @@ namespace emarket.Controllers
         }
         public ActionResult AddToCart(int id)
         {
-            var AddProduct = db.products.Single(product => product.Id == id);
-            cart Cart = new cart
-            {
-                product_Id = id,
-                product = db.products.SingleOrDefault(p => p.Id == id),
-                added_at = DateTime.Now
-            };
-            if (Cart != null)
+            var cart1 = new cart();
+            DateTime localDate = DateTime.Now;
+            cart1.added_at = localDate;
+            cart1.product_Id = id;
+            var cart2 = db.carts.Find(id);
+            if (cart2 != null)
             {
                 return RedirectToAction("Filter", "products");
             }
             else
             {
-                db.carts.Add(Cart);
+                db.carts.Add(cart1);
                 db.SaveChanges();
                 return RedirectToAction("Filter", "products");
             }
