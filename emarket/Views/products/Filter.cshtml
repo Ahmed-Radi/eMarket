@@ -21,17 +21,15 @@
                         <table class="table">
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                @*<th>
-                                    <a href="@Url.Action("Remove","Carts",new { id=item.cart.product_Id } )" class="btn btn-primary">Remove</a>
-                                </th>*@
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.cart.added_at)
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.cart.product.Name)
-                                </th>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <a href=" @*@Url.Action("Remove","Carts",new { id=item.cart.product_Id } )*@ " class="btn btn-primary">Remove</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cart.product.Name) - @Html.DisplayFor(modelItem => item.cart.product.Price) EGP<br />
+                                        @Html.DisplayFor(modelItem => item.cart.added_at)
+                                    </td>
+                                </tr>
                             }
 
                         </table>
@@ -41,7 +39,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <a href="@Url.Action("Filter", "Products", null)" class="btn btn-default" data-dismiss="modal">Cancel</a>
                     <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />
                 </div>
             </div>
@@ -80,7 +78,7 @@
                 <div class="caption">
                     <h4>@item.Name</h4>
                     @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
-                <h4>&#36;@item.Price</h4>
+                <h4>@item.Price EGP</h4>
                     <a href="@Url.Action("AddToCart","Carts",new { id=item.Id} )" class="btn btn-primary fa fa-shopping-cart">Add To Cart</a>
                 </div>
             </div>
