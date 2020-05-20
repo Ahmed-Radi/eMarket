@@ -159,6 +159,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ProductCartsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\emarket.mdf" />
@@ -235,7 +236,6 @@
     <Content Include="Views\products\Edit.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\products\Filter.cshtml" />
-    <Content Include="Views\Carts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

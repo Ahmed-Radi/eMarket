@@ -40,10 +40,13 @@ namespace emarket.Controllers
 
         public ActionResult Remove(int id)
         {
-            var Remove = db.carts.Single(cart => cart.product_Id == id);
-            db.carts.Remove(Remove);
+            var cart = db.carts.Find(id);
+            if (cart != null)
+            {
+                db.carts.Remove(cart);
+            }
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Filter", "products");
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using emarket.Models;
 using System.IO;
+using emarket.ViewModels;
 
 namespace emarket.Controllers
 {
@@ -169,13 +170,19 @@ namespace emarket.Controllers
         //Search by Category
         public ActionResult Filter(string search)
         {
-            var products = db.products.Include(p => p.category);
+            var products = db.products.Include(p => p.category).ToList();
 
             if (!String.IsNullOrEmpty(search))
             {
-                products = products.Where(item => item.category.Category_Name.Contains(search) || search == null);
+                products = products.Where(item => item.category.Category_Name.Contains(search) || search == null).ToList();
             }
-            return View(products.ToList());
+            var cart = db.carts.ToList();
+            var viewModel = new ProductCartsViewModel
+            {
+                carts = cart,
+                products = products
+            };
+            return View(viewModel);
         }
 
     }
