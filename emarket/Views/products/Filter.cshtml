@@ -21,110 +21,106 @@
             <tbody class="table-bordered">
                 @foreach (var item in Model.carts)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.product.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.added_at)
-                        </td>
-                        <td>
+                <tr>
+                    <td>
+                        @using (Html.BeginForm("remove", "Products", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", item.product.Id)
+                            <button type="submit" class="btn btn-danger btn-sm" style="margin-right:-30px">Remove</button>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.product.Name) - @Html.DisplayFor(modelItem => item.product.Price) EGP<br />
 
-                            @{
-                                TimeSpan ts = new TimeSpan();
-                                ts = DateTime.Now - item.added_at.Value;
+                        @{
+                            TimeSpan ts = new TimeSpan();
+                            ts = DateTime.Now - item.added_at.Value;
 
-                                //seconds ago
-                                if (ts.TotalMinutes < 1)
-                                {
+                            //seconds ago
+                            if (ts.TotalMinutes < 1)
+                            {
 
-                                    @Html.Label("just now")
-                                }
-                                //min ago
-                                else if (ts.TotalHours < 1)
+                                @Html.Label("just now")
+                            }
+                            //min ago
+                            else if (ts.TotalHours < 1)
+                            {
+                                if ((int)ts.TotalMinutes == 1)
                                 {
-                                    if ((int)ts.TotalMinutes == 1)
-                                    {
-                                        @Html.Label("a Minute ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)ts.TotalMinutes + " Minutes ago")
-                                    }
-
+                                    @Html.Label("a Minute ago")
                                 }
-                                //hours ago
-                                else if (ts.TotalDays < 1)
-                                {
-                                    if ((int)ts.TotalHours == 1)
-                                    {
-                                        @Html.Label("an Hour ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)ts.TotalHours + " Hours ago")
-                                    }
-                                }
-                                //days ago
-                                else if (ts.TotalDays < 7)
-                                {
-                                    if ((int)ts.TotalDays == 1)
-                                    {
-                                        @Html.Label("a Day ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)ts.TotalHours + " Days ago")
-                                    }
-
-                                }
-                                //weeks ago
-                                else if (ts.TotalDays < 30.4368)
-                                {
-                                    if ((int)(ts.TotalDays / 7) == 1)
-                                    {
-                                        @Html.Label("a Week ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)(ts.TotalDays / 7) + " Weeks ago")
-                                    }
-                                }
-                                //months ago
-                                else if (ts.TotalDays < 365.242)
-                                {
-                                    if ((int)(ts.TotalDays / 30.4368) == 1)
-                                    {
-                                        @Html.Label("a Month ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)(ts.TotalDays / 30.4368) + " Months ago")
-                                    }
-                                }
-
-                                //years ago
                                 else
                                 {
-                                    if ((int)(ts.TotalDays / 365.242) == 1)
-                                    {
-                                        @Html.Label("a Year ago")
-                                    }
-                                    else
-                                    {
-                                        @Html.Label((int)(ts.TotalDays / 365.242) + " Years ago")
-                                    }
+                                    @Html.Label((int)ts.TotalMinutes + " Minutes ago")
+                                }
+
+                            }
+                            //hours ago
+                            else if (ts.TotalDays < 1)
+                            {
+                                if ((int)ts.TotalHours == 1)
+                                {
+                                    @Html.Label("an Hour ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)ts.TotalHours + " Hours ago")
                                 }
                             }
-                        </td>
-                        <td>
-                            @using (Html.BeginForm("remove", "Products", FormMethod.Post))
+                            //days ago
+                            else if (ts.TotalDays < 7)
                             {
-                                @Html.Hidden("id", item.product.Id)
-                                <button type="submit" class="btn btn-danger btn-sm" style="margin-right:-30px">Remove</button>
+                                if ((int)ts.TotalDays == 1)
+                                {
+                                    @Html.Label("a Day ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)ts.TotalHours + " Days ago")
+                                }
+
                             }
-                        </td>
-                    </tr>
+                            //weeks ago
+                            else if (ts.TotalDays < 30.4368)
+                            {
+                                if ((int)(ts.TotalDays / 7) == 1)
+                                {
+                                    @Html.Label("a Week ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 7) + " Weeks ago")
+                                }
+                            }
+                            //months ago
+                            else if (ts.TotalDays < 365.242)
+                            {
+                                if ((int)(ts.TotalDays / 30.4368) == 1)
+                                {
+                                    @Html.Label("a Month ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 30.4368) + " Months ago")
+                                }
+                            }
+
+                            //years ago
+                            else
+                            {
+                                if ((int)(ts.TotalDays / 365.242) == 1)
+                                {
+                                    @Html.Label("a Year ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 365.242) + " Years ago")
+                                }
+                            }
+                        }
+                    </td>
+
+                </tr>
                 }
             </tbody>
         </table>
