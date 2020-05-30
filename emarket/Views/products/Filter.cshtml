@@ -23,11 +23,7 @@
                 {
                 <tr>
                     <td>
-                        @using (Html.BeginForm("remove", "Products", FormMethod.Post))
-                        {
-                            @Html.Hidden("id", item.product.Id)
-                            <button type="submit" class="btn btn-danger btn-sm" style="margin-right:-30px">Remove</button>
-                        }
+                        <a href=" @Url.Action("Remove","Carts",new { id=item.product_Id } )" class="btn btn-danger">Remove</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.product.Name) - @Html.DisplayFor(modelItem => item.product.Price) EGP<br />
