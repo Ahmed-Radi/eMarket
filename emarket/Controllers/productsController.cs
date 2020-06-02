@@ -149,6 +149,11 @@ namespace emarket.Controllers
         {
             product product = db.products.Find(id);
             db.products.Remove(product);
+            cart Cart = db.carts.Find(id);
+            if (Cart != null)
+            {
+                db.carts.Remove(Cart);
+            }
             db.SaveChanges();
             return RedirectToAction("Filter");
         }
