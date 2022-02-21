@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.Partial("_NavBar")
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+
+        <!-- Footer -->
+        <footer class="page-footer font-small mdb-color pt-4" style="background-color:#D0D3D4" ;>
+            @*<p font-family: Arial, Helvetica;">&copy; @DateTime.Now.Year - E_Market!</p>*@
+
+            <div class="container text-center text-md-left">
+
+                <!-- Footer links -->
+                <div class="row text-center text-md-left mt-3 pb-3">
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold" style="font-size:30px; color:#582424;">eMarket!</h6>
+                        <p style="font-size:20px;">
+                            Here you can see our product and Display your product
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+                    @*<hr class="w-100 clearfix d-md-none">*@
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold" style="font-size:20px;color:#582424;">Products</h6>
+                        <p style="font-size:15px;">
+                            Mobiles
+                        </p>
+                        <p style="font-size:15px;">
+                            Laptopos
+                        </p>
+                        <p style="font-size:15px;">
+                            Smart Tvs
+                        <p style="font-size:15px;">
+                            Camera
+                        </p>
+                        <p style="font-size:15px;">
+                            Watches
+                        </p>
+                        <p style="font-size:15px;">
+                            Airphones
+                        </p>
+                    </div>
+                    <div class="container text-center text-right" style="font-size:24px;">
+                        <h7 style="color:#582424;">
+                            Contact Us
+
+                        </h7>
+                        <br>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                        <!-- Add font awesome icons -->
+                        <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+                        <a href="https://twitter.com/" class="fa fa-twitter"></a>
+                        <a href="https://www.google.com/" class="fa fa-google"></a>
+                        <a href="https://www.youtube.com/" class="fa fa-youtube"></a>
+                        <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+                    </div>
+                </div>
+                <div class="footer-copyright text-center py-3" style="font-size:25px;">
+                    © 2020 eMarket!
+                </div>
+
+
+        </footer>
+
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

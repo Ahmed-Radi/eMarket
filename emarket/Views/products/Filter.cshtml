@@ -1,0 +1,191 @@
+﻿@model emarket.ViewModels.ProductCartsViewModel
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        @*<a href="href=" @Url.Action("Index", "carts", null) class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" role="button">Show my cart</a>*@
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title">Cart</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myForm">
+         <table class="table table-hover table-striped">
+            <tbody class="table-bordered">
+                @foreach (var item in Model.carts)
+                {
+                <tr>
+                    <td>
+                        <a href=" @Url.Action("Remove","Carts",new { id=item.product_Id } )" class="btn btn-danger">Remove</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.product.Name) - @Html.DisplayFor(modelItem => item.product.Price) EGP<br />
+
+                        @{
+                            TimeSpan ts = new TimeSpan();
+                            ts = DateTime.Now - item.added_at.Value;
+
+                            //seconds ago
+                            if (ts.TotalMinutes < 1)
+                            {
+
+                                @Html.Label("just now")
+                            }
+                            //min ago
+                            else if (ts.TotalHours < 1)
+                            {
+                                if ((int)ts.TotalMinutes == 1)
+                                {
+                                    @Html.Label("a Minute ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)ts.TotalMinutes + " Minutes ago")
+                                }
+
+                            }
+                            //hours ago
+                            else if (ts.TotalDays < 1)
+                            {
+                                if ((int)ts.TotalHours == 1)
+                                {
+                                    @Html.Label("an Hour ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)ts.TotalHours + " Hours ago")
+                                }
+                            }
+                            //days ago
+                            else if (ts.TotalDays < 7)
+                            {
+                                if ((int)ts.TotalDays == 1)
+                                {
+                                    @Html.Label("a Day ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)ts.TotalHours + " Days ago")
+                                }
+
+                            }
+                            //weeks ago
+                            else if (ts.TotalDays < 30.4368)
+                            {
+                                if ((int)(ts.TotalDays / 7) == 1)
+                                {
+                                    @Html.Label("a Week ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 7) + " Weeks ago")
+                                }
+                            }
+                            //months ago
+                            else if (ts.TotalDays < 365.242)
+                            {
+                                if ((int)(ts.TotalDays / 30.4368) == 1)
+                                {
+                                    @Html.Label("a Month ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 30.4368) + " Months ago")
+                                }
+                            }
+
+                            //years ago
+                            else
+                            {
+                                if ((int)(ts.TotalDays / 365.242) == 1)
+                                {
+                                    @Html.Label("a Year ago")
+                                }
+                                else
+                                {
+                                    @Html.Label((int)(ts.TotalDays / 365.242) + " Years ago")
+                                }
+                            }
+                        }
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+                    </form>
+                    <div style="text-align:center;display:none" id="loaderDiv">
+                        <img src="~/Content/InternetSlowdown_Day.gif" width="150" /> @* //put any image in content folder*@
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("Filter", "Products", null)" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    @*<input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />*@
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<h2>Products</h2>
+@using (Html.BeginForm())
+{
+    <br />
+    <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">@@</span>
+                @Html.TextBox("search", null, new { Type = "text", @class = "form-control" })
+                <span class="input-group-btn">
+                    @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-primary" })
+                </span>
+
+            </div>
+        </div>
+    </form>
+    <br />
+}
+
+<table class="table">
+    @foreach (var item in Model.products)
+    {
+        <div class=" col-lg-2 col-xs-6 col-sm-4 ">
+            <div class="thumbnail">
+                <a href="@Url.Action("Details","products",new { id=item.Id})">
+                    <img src="@Url.Content(item.Image)" alt="..." width="270" height="210">
+                </a>
+                <div class="caption">
+                    <h4>@item.Name</h4>
+                    @*@Html.ActionLink(item.Name, "Details", null, new { id = item.Id }, new { @class = "btn btn-info btn-lg" })*@
+                    <h4>@item.Price EGP</h4>
+                    <a href="@Url.Action("AddToCart","Carts",new { id=item.Id} )" class="btn btn-primary fa fa-shopping-cart">Add To Cart</a>
+                </div>
+            </div>
+        </div>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            $("#loaderDiv").show();
+            var myformdata = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Test/Index",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="emarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="number_of_products" Type="Int32" />
+    <NavigationProperty Name="products" Relationship="Self.FK__product__Categor__25869641" FromRole="category" ToRole="product" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Category_Id" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="Self.FK__product__Categor__25869641" FromRole="product" ToRole="category" />
+    <NavigationProperty Name="cart" Relationship="emarketModel.FK__cart__product_Id__35BCFE0A" FromRole="product" ToRole="cart" />
+  </EntityType>
+  <Association Name="FK__product__Categor__25869641">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="emarketEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <AssociationSet Name="FK__product__Categor__25869641" Association="Self.FK__product__Categor__25869641">
+      <End Role="category" EntitySet="categories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <EntitySet Name="carts" EntityType="emarketModel.cart" />
+    <AssociationSet Name="FK__cart__product_Id__35BCFE0A" Association="emarketModel.FK__cart__product_Id__35BCFE0A">
+      <End Role="product" EntitySet="products" />
+      <End Role="cart" EntitySet="carts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="product_Id" />
+    </Key>
+    <Property Name="product_Id" Type="Int32" Nullable="false" />
+    <Property Name="added_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="product" Relationship="emarketModel.FK__cart__product_Id__35BCFE0A" FromRole="cart" ToRole="product" />
+  </EntityType>
+  <Association Name="FK__cart__product_Id__35BCFE0A">
+    <End Type="emarketModel.product" Role="product" Multiplicity="1" />
+    <End Type="emarketModel.cart" Role="cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
